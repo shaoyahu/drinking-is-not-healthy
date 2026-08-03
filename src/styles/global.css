@@ -1,21 +1,26 @@
 /* ============================================
    Theme — 喝酒有害健康
    视觉:深色基底 + 红色警告 + 琥珀数据 + 大字冲击
+   支持 dark / light 两种主题,通过 [data-theme] 切换
    ============================================ */
 
-:root {
+:root,
+[data-theme='dark'] {
+  /* —— 背景层级:从最深到浅 —— */
   --bg-0: #050505;
   --bg-1: #0a0a0a;
   --bg-2: #111111;
   --bg-3: #1a1a1a;
   --bg-4: #242424;
 
+  /* —— 文字层级:从最亮到最暗 —— */
   --text-0: #ffffff;
   --text-1: #e6e6e6;
   --text-2: #b3b3b3;
   --text-3: #808080;
   --text-4: #4d4d4d;
 
+  /* —— 强调色 —— */
   --danger: #ff2d2d;
   --danger-bright: #ff3838;
   --danger-deep: #b30000;
@@ -23,11 +28,35 @@
   --good: #2dd4a4;
   --accent: #ffb800;
 
+  /* —— 边框 / 分隔线 —— */
   --border-1: rgba(255, 255, 255, 0.08);
   --border-2: rgba(255, 255, 255, 0.15);
   --border-danger: rgba(255, 45, 45, 0.4);
 
+  /* —— 阴影 / 发光 —— */
   --shadow-danger: 0 0 40px rgba(255, 45, 45, 0.25);
+  --shadow-1: rgba(0, 0, 0, 0.3);
+  --shadow-2: rgba(0, 0, 0, 0.4);
+  --shadow-3: rgba(0, 0, 0, 0.6);
+
+  /* —— 半透明叠加层(暗色下用白色 alpha 当"高光")——
+     同一组 token 在亮色下翻成黑色 alpha(变成"阴影"),保持视觉重量一致 */
+  --tint-0: rgba(255, 255, 255, 0.005);
+  --tint-1: rgba(255, 255, 255, 0.02);
+  --tint-2: rgba(255, 255, 255, 0.025);
+  --tint-3: rgba(255, 255, 255, 0.03);
+  --tint-4: rgba(255, 255, 255, 0.04);
+  --tint-5: rgba(255, 255, 255, 0.05);
+
+  /* —— 内嵌描边(暗色下是"亮边",亮色下是"暗边")—— */
+  --inset-highlight: rgba(255, 255, 255, 0.1);
+  --inset-highlight-strong: rgba(255, 255, 255, 0.2);
+
+  /* —— 媒体容器占位色(视频 / SVG 暗房)——
+     这两个是"暗房"语义 —— 亮色主题下也保持深色,让视频和脏器 SVG 不穿帮 */
+  --video-bg: #000;
+  --cancer-frame-from: #0a0a0a;
+  --cancer-frame-to: #050505;
 
   --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
     'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial,
@@ -40,15 +69,75 @@
   --pad-x: clamp(20px, 4vw, 56px);
 }
 
+/* ============================================
+   Light theme — 明亮模式覆盖
+   只覆盖会变的 token,布局/动画不动
+   ============================================ */
+
+[data-theme='light'] {
+  /* 背景层级:从最浅到最深(给 section 区分用) */
+  --bg-0: #fafafa;
+  --bg-1: #f3f3f3;
+  --bg-2: #e8e8e8;
+  --bg-3: #d8d8d8;
+  --bg-4: #c4c4c4;
+
+  /* 文字层级 */
+  --text-0: #0a0a0a;
+  --text-1: #1a1a1a;
+  --text-2: #4d4d4d;
+  --text-3: #707070;
+  --text-4: #999999;
+
+  /* 强调色 —— 在浅色背景上需要稍微压一压饱和度,不然太炸眼 */
+  --danger: #d61717;
+  --danger-bright: #e21d1d;
+  --danger-deep: #8a0000;
+  --warning: #b86e00;
+  --good: #0d8a6a;
+  --accent: #b87800;
+
+  /* 边框 —— 用黑色 alpha 替代白色 alpha */
+  --border-1: rgba(0, 0, 0, 0.08);
+  --border-2: rgba(0, 0, 0, 0.15);
+  --border-danger: rgba(214, 23, 23, 0.45);
+
+  /* 阴影 —— 浅色下不能太重,否则像贴了一层黑胶布 */
+  --shadow-danger: 0 0 40px rgba(214, 23, 23, 0.18);
+  --shadow-1: rgba(0, 0, 0, 0.08);
+  --shadow-2: rgba(0, 0, 0, 0.12);
+  --shadow-3: rgba(0, 0, 0, 0.18);
+
+  /* 半透明叠加层翻面:白 alpha → 黑 alpha(同样透明度,亮色下能看见) */
+  --tint-0: rgba(0, 0, 0, 0.015);
+  --tint-1: rgba(0, 0, 0, 0.025);
+  --tint-2: rgba(0, 0, 0, 0.04);
+  --tint-3: rgba(0, 0, 0, 0.05);
+  --tint-4: rgba(0, 0, 0, 0.06);
+  --tint-5: rgba(0, 0, 0, 0.08);
+
+  /* 内嵌描边:从"亮边"变"暗边" */
+  --inset-highlight: rgba(0, 0, 0, 0.1);
+  --inset-highlight-strong: rgba(0, 0, 0, 0.18);
+
+  /* 媒体容器保持深色(暗房语义,不随主题变) */
+  --video-bg: #000;
+  --cancer-frame-from: #0a0a0a;
+  --cancer-frame-to: #050505;
+}
+
+/* —— 主题切换时给个轻微过渡,避免生硬 —— */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
+  transition: background-color 0.2s ease;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
-
-html {
-  scroll-behavior: smooth;
-  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -61,10 +150,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
-}
-
-html {
-  overflow-x: hidden;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 a {
@@ -240,7 +326,7 @@ section {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(5, 5, 5, 0.85);
+  background: color-mix(in srgb, var(--bg-0) 85%, transparent);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-1);
@@ -321,6 +407,56 @@ section {
   border-color: var(--danger);
 }
 
+/* —— 主题切换按钮(太阳/月亮)——
+   复用 nav-toggle 的方形边框样式,只是里面是 SVG。
+   margin-left: auto 把它推到右侧,跟 nav-links / nav-toggle 一组 */
+.theme-toggle {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  border: 1px solid var(--border-2);
+  border-radius: 8px;
+  color: var(--text-1);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s, transform 0.2s;
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  border-color: var(--warning);
+  color: var(--warning);
+  background: var(--tint-3);
+}
+
+.theme-toggle:active {
+  transform: scale(0.94);
+}
+
+.theme-toggle svg {
+  display: block;
+}
+
+/* 桌面端:把主题按钮和 nav-links 之间的间距拉大一点 */
+@media (min-width: 721px) {
+  .theme-toggle {
+    margin-right: clamp(12px, 2vw, 20px);
+  }
+}
+
+/* 移动端:把主题按钮放在 nav-toggle 左边,挨在一起 */
+@media (max-width: 720px) {
+  .theme-toggle {
+    margin-right: 8px;
+  }
+  .nav-toggle {
+    margin-left: 0;
+  }
+}
+
 .nav-toggle-bar {
   display: block;
   width: 18px;
@@ -362,7 +498,7 @@ section {
     right: 0;
     flex-direction: column;
     gap: 0;
-    background: rgba(10, 10, 10, 0.98);
+    background: color-mix(in srgb, var(--bg-1) 98%, transparent);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-top: 1px solid var(--border-2);
@@ -431,7 +567,7 @@ section {
   z-index: 1;
   background:
     radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255, 45, 45, 0.12) 0%, transparent 60%),
-    linear-gradient(180deg, rgba(5, 5, 5, 0.4) 0%, rgba(5, 5, 5, 0.75) 100%);
+    linear-gradient(180deg, color-mix(in srgb, var(--bg-0) 40%, transparent) 0%, color-mix(in srgb, var(--bg-0) 75%, transparent) 100%);
   pointer-events: none;
 }
 
@@ -511,7 +647,7 @@ section {
 }
 
 .btn-ghost:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--tint-5);
   color: var(--text-0);
   text-decoration: none;
 }
@@ -1059,6 +1195,59 @@ section {
   font-size: clamp(16px, 1.4vw, 18px);
 }
 
+/* —— 通用 callout 框(琥珀色描边 + 琥珀色淡底,中性的"提示/补充"语气)——
+   暗色和亮色下都成立,因为用的是 accent 色相的 alpha,跟 base 颜色解耦 */
+.callout {
+  margin-top: 40px;
+  padding: 24px 28px;
+  background: rgba(255, 157, 0, 0.04);
+  border: 1px solid rgba(255, 157, 0, 0.25);
+  border-radius: 8px;
+  color: var(--text-1);
+}
+.callout-title {
+  color: var(--warning);
+  margin-bottom: 12px;
+}
+.callout-body {
+  color: var(--text-2);
+  font-size: 15.5px;
+  line-height: 1.7;
+  margin: 0;
+}
+.callout-body strong {
+  color: var(--warning);
+  font-weight: 700;
+}
+
+/* —— callout 的危险色变体:用于"驳斥/警告"段落 —— */
+.callout-danger {
+  background: rgba(255, 45, 45, 0.06);
+  border-color: rgba(255, 45, 45, 0.3);
+}
+.callout-danger .callout-title {
+  color: var(--danger-bright);
+}
+.callout-danger .callout-body strong {
+  color: var(--text-0);
+  font-weight: 800;
+}
+
+/* —— 紧凑版 callout:左侧琥珀色边线 + 极小内边距,适合"Source: xxx"这种引用条 —— */
+.source-callout {
+  margin-top: 20px;
+  padding: 10px 14px;
+  border-left: 3px solid var(--warning);
+  background: rgba(255, 157, 0, 0.04);
+  font-size: 13px;
+  color: var(--text-2);
+  border-radius: 0 4px 4px 0;
+}
+.source-callout strong {
+  color: var(--warning);
+  font-weight: 700;
+}
+
 /* ============================================
    Body Impact — 全身图视频区
    ============================================ */
@@ -1106,11 +1295,11 @@ section {
   position: relative;
   border-radius: 16px;
   overflow: hidden;
-  background: #000;
+  background: var(--video-bg);
   box-shadow:
     0 0 0 1px rgba(255, 45, 45, 0.15),
     0 30px 80px rgba(255, 45, 45, 0.2),
-    0 0 120px rgba(0, 0, 0, 0.6);
+    0 0 120px var(--shadow-3);
 }
 
 .body-impact-video {
@@ -1359,7 +1548,7 @@ section {
   background:
     radial-gradient(ellipse at top left, rgba(255, 45, 45, 0.08), transparent 50%),
     radial-gradient(ellipse at bottom right, rgba(255, 45, 45, 0.05), transparent 50%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.005));
+    linear-gradient(180deg, var(--tint-1), var(--tint-0));
   border: 1px solid var(--border-danger);
   border-radius: 16px;
   position: relative;
@@ -1412,7 +1601,7 @@ section {
   justify-content: center;
   gap: 4px;
   padding: 12px 8px;
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--tint-1);
   border: 1px solid var(--border-1);
   border-radius: 10px;
   color: var(--text-2);
@@ -1526,13 +1715,13 @@ section {
   position: relative;
   background:
     radial-gradient(ellipse at center, rgba(255, 45, 45, 0.12), transparent 65%),
-    linear-gradient(180deg, #0a0a0a, #050505);
+    linear-gradient(180deg, var(--cancer-frame-from), var(--cancer-frame-to));
   border: 1px solid var(--border-2);
   border-radius: 14px;
   padding: 24px;
   aspect-ratio: 1 / 1;
   overflow: hidden;
-  box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.6);
+  box-shadow: inset 0 0 60px var(--shadow-3);
 }
 
 .organ-svg {
@@ -1576,14 +1765,14 @@ section {
   padding: 12px 18px;
   border-radius: 10px;
   text-align: right;
-  box-shadow: 0 6px 24px rgba(255, 45, 45, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  box-shadow: 0 6px 24px rgba(255, 45, 45, 0.5), 0 0 0 1px var(--inset-highlight) inset;
   animation: floatPulse 2.4s ease-in-out infinite;
   z-index: 2;
 }
 
 @keyframes floatPulse {
-  0%, 100% { transform: scale(1); box-shadow: 0 6px 24px rgba(255, 45, 45, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1) inset; }
-  50% { transform: scale(1.04); box-shadow: 0 8px 32px rgba(255, 45, 45, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.2) inset; }
+  0%, 100% { transform: scale(1); box-shadow: 0 6px 24px rgba(255, 45, 45, 0.5), 0 0 0 1px var(--inset-highlight) inset; }
+  50% { transform: scale(1.04); box-shadow: 0 8px 32px rgba(255, 45, 45, 0.7), 0 0 0 1px var(--inset-highlight-strong) inset; }
 }
 
 .floating-stat-num {
@@ -1592,7 +1781,7 @@ section {
   line-height: 1;
   font-family: var(--font-display);
   letter-spacing: -0.02em;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 2px 4px var(--shadow-1);
 }
 
 .floating-stat-label {
@@ -1727,7 +1916,7 @@ section {
 }
 
 .cancer-mechanism {
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--tint-3);
   border-left: 3px solid var(--warning);
   border-radius: 4px;
   padding: 14px 16px;
@@ -2164,9 +2353,23 @@ section {
 .source-tag[data-kind='green']  { background: rgba(45, 212, 164, 0.12);  color: #4ddbb0; border-color: rgba(45, 212, 164, 0.35); }
 .source-tag[data-kind='gray']   { background: rgba(160, 160, 160, 0.10); color: #b3b3b3; border-color: rgba(160, 160, 160, 0.3); }
 
+/* 亮色主题下:浅色文字在浅底上看不清,把每个 kind 的字色加深 */
+[data-theme='light'] .source-tag[data-kind='red']    { color: #c41212; border-color: rgba(196, 18, 18, 0.4); }
+[data-theme='light'] .source-tag[data-kind='pink']   { color: #c92a7a; border-color: rgba(201, 42, 122, 0.4); }
+[data-theme='light'] .source-tag[data-kind='purple'] { color: #6b3acc; border-color: rgba(107, 58, 204, 0.4); }
+[data-theme='light'] .source-tag[data-kind='orange'] { color: #a85a00; border-color: rgba(168, 90, 0, 0.4); }
+[data-theme='light'] .source-tag[data-kind='blue']   { color: #1d4ed8; border-color: rgba(29, 78, 216, 0.4); }
+[data-theme='light'] .source-tag[data-kind='amber']  { color: #a06000; border-color: rgba(160, 96, 0, 0.4); }
+[data-theme='light'] .source-tag[data-kind='flag']   { color: #b91c1c; border-color: rgba(185, 28, 28, 0.5); }
+[data-theme='light'] .source-tag[data-kind='cyan']   { color: #0e7490; border-color: rgba(14, 116, 144, 0.4); }
+[data-theme='light'] .source-tag[data-kind='azure']  { color: #0369a1; border-color: rgba(3, 105, 161, 0.4); }
+[data-theme='light'] .source-tag[data-kind='green']  { color: #0a7d5c; border-color: rgba(10, 125, 92, 0.4); }
+[data-theme='light'] .source-tag[data-kind='gray']   { color: #555555; border-color: rgba(85, 85, 85, 0.3); }
+[data-theme='light'] .source-tag[data-kind='journal'] { color: #8a5500; }
+
 /* 元信息(类型/期刊):中性金属感,不和主题色冲突 */
 .source-tag[data-kind='type'] {
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--tint-4);
   color: var(--text-1);
   border-color: var(--border-2);
   font-family: var(--font-mono);
@@ -2278,7 +2481,7 @@ section {
   align-items: center;
   margin-top: 20px;
   padding: 16px 18px;
-  background: rgba(255, 255, 255, 0.025);
+  background: var(--tint-2);
   border: 1px dashed var(--border-1);
   border-radius: 8px;
 }
@@ -2526,7 +2729,7 @@ section {
 .ancient-quote:hover {
   border-color: var(--warning);
   transform: translateX(4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 8px 24px var(--shadow-2);
 }
 
 .ancient-quote-book {
@@ -2691,7 +2894,7 @@ section {
 .tip-card:hover {
   border-color: var(--warning);
   transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 12px 32px var(--shadow-2);
 }
 
 .tip-card:hover::before {

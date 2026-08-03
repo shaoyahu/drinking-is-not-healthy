@@ -24,20 +24,9 @@ export default function China() {
           ))}
         </div>
 
-        <div
-          style={{
-            marginTop: 40,
-            padding: '24px 28px',
-            background: 'rgba(255, 157, 0, 0.04)',
-            border: '1px solid rgba(255, 157, 0, 0.2)',
-            borderRadius: 8,
-            color: 'var(--text-1)',
-          }}
-        >
-          <h3 className="heading" style={{ color: 'var(--warning)', marginBottom: 12 }}>
-            为什么中国人对酒精更脆弱?
-          </h3>
-          <p style={{ color: 'var(--text-2)', fontSize: 15.5, lineHeight: 1.7, margin: 0 }}>
+        <div className="callout">
+          <h3 className="heading callout-title">为什么中国人对酒精更脆弱?</h3>
+          <p className="callout-body">
             约 <strong>1/3 的东亚人(主要集中在中国、日本、韩国)</strong>携带 ALDH2*2 基因变异,
             乙醛脱氢酶活性低,乙醛代谢慢。"喝酒脸红"不是"能喝",恰恰是 DNA 损伤正在发生的信号 —
             乙醛是明确的致癌物,这部分人群的食道癌、胃癌、肝癌风险显著高于欧美人。

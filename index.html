@@ -10,6 +10,24 @@
     <meta property="og:title" content="喝酒有害健康 · No Safe Dose" />
     <meta property="og:description" content="世界卫生组织把酒精列为一级致癌物。每 20 个死亡就有 1 个因酒精。安全剂量 = 0。" />
     <title>喝酒有害健康 · No Safe Dose</title>
+    <script>
+      // 在 React 挂载前就应用主题,避免 FOUC(暗→亮 或 亮→暗闪烁)。
+      // 优先级:localStorage > 系统的 prefers-color-scheme > 兜底 dark
+      (function () {
+        try {
+          var stored = localStorage.getItem('din-theme');
+          var theme = stored === 'light' || stored === 'dark' ? stored : null;
+          if (!theme) {
+            theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches
+              ? 'light'
+              : 'dark';
+          }
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -125,23 +125,15 @@ export default function SocialCost() {
           ))}
         </div>
 
-        <div
-          style={{
-            marginTop: 48,
-            padding: '28px 32px',
-            background: 'rgba(255, 45, 45, 0.06)',
-            border: '1px solid rgba(255, 45, 45, 0.25)',
-            borderRadius: 8,
-          }}
-        >
-          <h3 className="heading" style={{ color: 'var(--danger-bright)', marginBottom: 12 }}>
+        <div className="callout callout-danger" style={{ marginTop: 48, padding: '28px 32px' }}>
+          <h3 className="heading callout-title">
             关于"我应酬不喝办不成事"
           </h3>
-          <p style={{ color: 'var(--text-1)', fontSize: 16, lineHeight: 1.75, margin: 0 }}>
+          <p className="callout-body" style={{ color: 'var(--text-1)', fontSize: 16, lineHeight: 1.75 }}>
             这是酒精文化最常见、最具破坏力的话术。
             真相是:<strong>商业谈判成功率与参与者是否清醒无关,与合作方实际利益相关</strong>;
             而酒后签下的合同、误判的风险、酒驾回家路上的危险,反而是对方最不希望承担的。
-            澳大利亚政府委托研究显示,酒精造成的"<strong style={{ color: 'var(--text-1)' }}>
+            澳大利亚政府委托研究显示,酒精造成的"<strong>
             对他人伤害(AHTO)</strong>"约 AUD <strong>198 亿</strong>/年,
             其中 <strong>89% 由家人和私人个体承担</strong>,不是企业,不是政府 —
             受害最深的就是你最亲近的人。

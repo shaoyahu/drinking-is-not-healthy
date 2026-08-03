@@ -24,16 +24,8 @@ export default function BrainDamage() {
               影响在停止饮酒后仍持续<strong> 6 周</strong>。
             </p>
 
-            <div style={{
-              marginTop: 20,
-              padding: '10px 14px',
-              borderLeft: '3px solid var(--warning)',
-              background: 'rgba(255, 157, 0, 0.04)',
-              fontSize: 13,
-              color: 'var(--text-2)',
-              borderRadius: '0 4px 4px 0',
-            }}>
-              <strong style={{ color: 'var(--warning)' }}>Source · </strong>
+            <div className="source-callout">
+              <strong>Source · </strong>
               Daviet et al., <em>Nature Communications</em>, 13: 1575, 2022
             </div>
           </div>

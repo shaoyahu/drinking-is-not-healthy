@@ -10,13 +10,15 @@ import QnA from './components/QnA';
 import BingeCulture from './components/BingeCulture';
 import Sources from './components/Sources';
 import Footer from './components/Footer';
+import { useTheme } from './hooks/useTheme';
 
 function App() {
+  const { theme, toggleTheme } = useTheme();
   // 锚点跳转由浏览器原生 + CSS scroll-behavior: smooth + scroll-margin-top 处理,
   // 不需要额外的 useEffect。
   return (
     <div className="app">
-      <Nav />
+      <Nav theme={theme} onToggleTheme={toggleTheme} />
       <Hero />
       <Stats />
       <BodyImpact />
